@@ -1,0 +1,20 @@
+[package]
+name = "picshot-develop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nephclick Picshot develop settings: the non-destructive edit model, control specs, presets (L1)"
+
+[lints]
+workspace = true
+
+[dependencies]
+craft-mime = { workspace = true }
+picshot-geom = { workspace = true }
+picshot-color = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+miniz_oxide = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

@@ -1,0 +1,42 @@
+[package]
+name = "picshot-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = "Nephclick Picshot command-line tool: headless render, command listing and the MCP server"
+
+[[bin]]
+name = "picshot-cli"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+picshot-engine = { workspace = true }
+picshot-denoise = { workspace = true }
+picshot-sysmem = { workspace = true }
+picshot-mcp = { workspace = true }
+picshot-ui-egui = { workspace = true }
+picshot-codecs = { workspace = true }
+picshot-raster = { workspace = true }
+picshot-merge = { workspace = true }
+serde_json = { workspace = true }
+dhat = { workspace = true, optional = true }
+
+[dev-dependencies]
+picshot-testkit = { workspace = true }
+
+[features]
+default = ["denoise"]
+denoise = ["picshot-engine/denoise"]
+rawnind-model = ["denoise", "picshot-engine/rawnind-model"]
+# Heap profiling: `cargo run --release -p picshot-cli --features dhat-heap -- snapshot …` counts
+# every allocation (live/peak bytes in `library.memory` / `ui.inspect`) and writes dhat-heap.json
+# (open it in DHAT's viewer: allocation sites by bytes at the peak). Slows allocation-heavy work.
+dhat-heap = ["dep:dhat"]
+
+# Open HEIC/HEIF photos (the optional craft-heif crate). Not default so distributors choose
+# it (HEVC patents); build with `--features heif` to include it.
+heif = ["picshot-codecs/heif"]

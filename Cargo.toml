@@ -1,0 +1,212 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "apps/*", "xtask"]
+
+[workspace.package]
+version = "0.21.1"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+rust-version = "1.95"
+repository = "https://github.com/storytold/picshot"
+
+[workspace.dependencies]
+craft-cms-profile = { package = "craft-cms", git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-plist = { version = "0.1.0", git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-pdf-print = { package = "craft-pdf", git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", default-features = false, features = ["write-raster"] }
+craft-ui = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", features = ["serde"] }
+craft-docpath = { version = "0.1.0", git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+# Canon CRW decoder shared with the other Craft apps
+craft-crw = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-cms = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-mime = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", version = "0.1.0" }
+craft-gif = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", features = ["frames"] }
+craft-jxl = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", default-features = false, features = ["decode", "encode"] }
+jixel = "=0.3.4"
+# Photo metadata: EXIF, IPTC-IIM, XMP packets and GPX track logs (craft-libs#949)
+craft-metadata = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-jpeg = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-image-codecs = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-video = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", features = ["av1", "av1-large-encode", "threads"] }
+craft-xml = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+# craft-update: app-specific pretend versions apply to startup and manual checks.
+craft-update = { git = "https://github.com/storytold/craft-libs", version = "=0.1.0", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", features = ["egui"] }
+craft-window = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", features = ["egui"] }
+# HDR gain maps: ISO 21496-1 and hdrgm metadata, compute and apply (moved from crates/codecs; craft-libs#904).
+craft-gainmap = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+# PSD/PSB: the header, colour mode data and image resources (craft-libs#885).
+craft-psd = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+jpeg-encoder = { version = "0.7", default-features = false, features = ["std"] }
+# internal
+picshot-denoise-core = { path = "crates/denoise-core" }
+picshot-denoise = { path = "crates/denoise", default-features = false }
+picshot-geom = { path = "crates/geom" }
+picshot-faces = { path = "crates/faces" }
+picshot-sysmem = { path = "crates/sysmem" }
+picshot-wincolor = { path = "crates/wincolor" }
+picshot-color = { path = "crates/color" }
+picshot-raster = { path = "crates/raster" }
+# TIFF/IFD: the shared reader and writer (moved from crates/tiff; craft-libs#783).
+craft-tiff = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+craft-raw = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3" }
+picshot-raw = { path = "crates/raw" }
+picshot-codecs = { path = "crates/codecs" }
+picshot-meta = { path = "crates/meta" }
+picshot-develop = { path = "crates/develop" }
+picshot-film = { path = "crates/film" }
+picshot-lensdb = { path = "crates/lensdb" }
+picshot-inpaint = { path = "crates/inpaint" }
+picshot-scenes = { path = "crates/scenes" }
+picshot-pipeline = { path = "crates/pipeline" }
+picshot-gpu = { path = "crates/gpu" }
+picshot-catalog = { path = "crates/catalog" }
+picshot-preview = { path = "crates/preview" }
+picshot-merge = { path = "crates/merge" }
+picshot-engine = { path = "crates/engine" }
+picshot-ui-egui = { path = "crates/ui-egui" }
+picshot-mcp = { path = "crates/mcp" }
+picshot-fetch = { path = "crates/fetch" }
+# HEIC/HEIF: the shared decoder (moved from crates/heif; craft-libs#784).
+craft-heif = { git = "https://github.com/storytold/craft-libs", rev = "23acc704933a9a5619a5cd1cddc9bb1fb5a9b2d3", default-features = false }
+picshot-segment = { path = "crates/segment" }
+picshot-geocode = { path = "crates/geocode" }
+picshot-slideshow = { path = "crates/slideshow" }
+picshot-testkit = { path = "crates/testkit" }
+
+# foundation
+thiserror = "2"
+ureq = { version = "3", features = ["json"] }
+sha2 = "0.10"
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = { version = "1", features = ["float_roundtrip"] }
+log = "0.4"
+# All date/time conversion goes through chrono (no hand-rolled calendar code beyond the 400-year range extension; AGENTS.md).
+chrono = { version = "0.4.45", default-features = false, features = ["std"] }
+rayon = "1"
+# free/total space of a drive (engine's low-disk alert); MIT OR Apache-2.0, pure Rust (rustix / windows-sys)
+fs4 = { version = "1.1", default-features = false }
+winapi-util = "0.1" # picshot-catalog reads a file's volume serial number and file index with it on Windows
+proptest = "1"
+bytemuck = { version = "1", features = ["derive"] }
+crc32fast = "1"
+siphasher = "1"
+libm = "0.2" # pure-Rust maths for picshot-film (target-independent results)
+libc = "0.2" # dev-only: process CPU time in benches
+dhat = "0.3" # opt-in heap profiling (picshot-cli --features dhat-heap) and heap tests; never in product builds
+
+# formats
+miniz_oxide = "0.9"
+
+# codecs
+ab_glyph = { version = "0.2", default-features = false, features = ["std"] }  # Apache-2.0, pure Rust glyph rasterizer (export watermarks)
+moxcms = { version = "0.9", default-features = false, features = ["lut"] }
+
+# gpu (crates/gpu; native backends only, no GL: everything stays pure Rust)
+# SAM 3 inference (picshot-segment). 0.9.2: later releases pull `tokenizers` with the
+# Oniguruma C library into candle-core, and the product is pure Rust.
+candle-core = { version = "=0.9.2", default-features = false }
+candle-nn = { version = "=0.9.2", default-features = false }
+wgpu = { version = "30", default-features = false, features = ["std", "parking_lot", "metal", "vulkan", "dx12", "wgsl"] }
+pollster = "1"
+
+# ui
+# 0.37: `default_fonts` is no longer an egui default and the monochrome emoji faces moved behind
+# `monochrome_emoji_fonts`. Every resolution root (native, CLI/headless, kittest, wasm) needs both:
+# kittest's own dev-dependencies do not propagate to its consumers.
+egui = { version = "0.37", default-features = false, features = ["default_fonts", "monochrome_emoji_fonts"] }
+egui_extras = { version = "0.37", default-features = false }
+eframe = { version = "0.37", default-features = false }
+egui_kittest = "0.37"
+rfd = "0.17"
+muda = { version = "0.21", default-features = false } # native menu bar (macOS: objc2/AppKit, pure Rust; no GTK)
+# macOS: the profile of the screen showing the window (safe AppKit bindings; muda and wgpu use the same)
+objc2 = { version = "0.6", default-features = false, features = ["std"] }
+objc2-app-kit = { version = "0.3", default-features = false, features = ["std", "NSApplication", "NSColorSpace", "NSResponder", "NSScreen", "NSWindow"] }
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSArray", "NSData"] }
+# Linux: the desktop's dark/light setting from the XDG settings portal (Settings ▸ Interface ▸
+# Appearance Mode ▸ Auto). Pure Rust; the version accesskit already brings in, pinned to it.
+zbus = "=5.19.0"
+web-time = "1"
+
+# web (apps/picshot-web)
+wasm-bindgen = "0.2.129"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = "0.3"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+cognitive_complexity = "deny"
+too_many_arguments = "deny"
+wildcard_imports = "deny"
+dbg_macro = "warn"
+todo = "warn"
+needless_range_loop = "allow"
+type_complexity = "allow"
+excessive_precision = "allow"
+
+[profile.dev.package."*"]
+opt-level = 2
+debug = false
+
+[profile.dev]
+opt-level = 1
+debug = "line-tables-only"
+
+[profile.release]
+debug = "line-tables-only"
+
+[profile.dist]
+inherits = "release"
+lto = "thin"
+codegen-units = 1
+debug = false
+
+# `cargo xtask web`: the browser build. Size matters more than build time: fat LTO, one codegen
+# unit, no symbols, abort on panic (wasm32 can't unwind anyway), size-optimized code — except the
+# crates that do per-pixel work, which stay at opt-level 3 (opt-level "s"/"z" there costs ~50 %/
+# ~130 % render time; measured in docs/web.md → Bundle size).
+[profile.web]
+inherits = "release"
+debug = false
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
+opt-level = "s"
+
+[profile.web.package]
+picshot-pipeline = { opt-level = 3 }
+picshot-raster = { opt-level = 3 }
+picshot-color = { opt-level = 3 }
+picshot-develop = { opt-level = 3 }
+picshot-geom = { opt-level = 3 }
+picshot-raw = { opt-level = 3 }
+craft-raw = { opt-level = 3 }
+picshot-codecs = { opt-level = 3 }
+picshot-scenes = { opt-level = 3 }
+picshot-preview = { opt-level = 3 }
+zune-jpeg = { opt-level = 3 }
+zune-core = { opt-level = 3 }
+jpeg-encoder = { opt-level = 3 }
+png = { opt-level = 3 }
+miniz_oxide = { opt-level = 3 }
+
+# Keep the complete egui family and native event bridge on reviewed fork commits.
+[patch.crates-io]
+ecolor = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+emath = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+epaint = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+epaint_default_fonts = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui-winit = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui-wgpu = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_glow = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_extras = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_kittest = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_system_font_provider = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+eframe = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_demo_lib = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+egui_inspection = { git = "https://github.com/storytold/egui.git", rev = "6d518fc799681571963842f95b55a6b68431b15a" }
+winit = { git = "https://github.com/storytold/winit.git", rev = "a517b3846ee8457d84ee4975110bfda6797c44dc" }

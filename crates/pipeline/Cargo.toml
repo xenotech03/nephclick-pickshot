@@ -1,0 +1,27 @@
+[package]
+name = "picshot-pipeline"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nephclick Picshot develop pipeline: scene-referred, float, resolution independent (CPU reference) (L2)"
+
+[lints]
+workspace = true
+
+[dependencies]
+craft-cms-profile = { workspace = true }
+picshot-geom = { workspace = true }
+picshot-color = { workspace = true }
+picshot-raster = { workspace = true }
+picshot-develop = { workspace = true }
+picshot-raw = { workspace = true }
+picshot-inpaint = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+dhat = { workspace = true }
+picshot-scenes = { workspace = true }
+proptest = { workspace = true }
+craft-image-codecs = { workspace = true }
+serde_json = { workspace = true }

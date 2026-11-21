@@ -1,0 +1,11 @@
+kind = "app"
+categories = ["Graphics", "Photography"]
+icon = "assets/app-icon/hicolor/256x256/apps/com.nephclick.picshot.png"
+
+[linux.x86_64]
+asset = "picshot-{version}-linux-x86_64.tar.gz"
+exec = "picshot-{version}-linux-x86_64/bin/picshot"
+
+[linux.aarch64]
+asset = "picshot-{version}-linux-aarch64.tar.gz"
+exec = "picshot-{version}-linux-aarch64/bin/picshot"

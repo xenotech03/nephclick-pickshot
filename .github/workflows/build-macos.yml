@@ -1,0 +1,73 @@
+name: Build macOS DMG
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: 'Target Architecture (universal, aarch64, x86_64)'
+        required: true
+        default: 'universal'
+        type: choice
+        options:
+          - universal
+          - aarch64
+          - x86_64
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-macos:
+    name: Build macOS Release (${{ inputs.arch || 'universal' }})
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin, x86_64-apple-darwin
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Prepare craft-fonts
+        run: |
+          git clone --no-checkout https://github.com/storytold/craft-fonts ../craft-fonts
+          git -C ../craft-fonts checkout --detach b076417b5880bd4154bd22f00695b1d28c6bea83
+          echo "CRAFT_FONTS_DIR=$(cd ../craft-fonts && pwd)" >> $GITHUB_ENV
+          echo "CRAFT_FONTS_REQUIRED=1" >> $GITHUB_ENV
+
+      - name: Build and Package macOS App & DMG
+        env:
+          MACOS_SIGN_IDENTITY: "-"
+        run: |
+          chmod +x packaging/macos/package.sh packaging/env.sh packaging/fonts.sh
+          ./packaging/macos/package.sh --arch "${{ inputs.arch || 'universal' }}"
+
+      - name: Generate Checksums
+        run: |
+          cd dist/release
+          shasum -a 256 *.dmg *.zip > sha256sums.txt
+          cat sha256sums.txt
+
+      - name: Upload macOS Artifacts (.dmg and .zip)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nephclick-picshot-macos-${{ inputs.arch || 'universal' }}
+          path: |
+            dist/release/*.dmg
+            dist/release/*.zip
+            dist/release/sha256sums.txt
+          if-no-files-found: error

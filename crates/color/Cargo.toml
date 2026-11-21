@@ -1,0 +1,16 @@
+[package]
+name = "picshot-color"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nephclick Picshot color (L0)"
+
+[lints]
+workspace = true
+
+[dependencies]
+serde = { workspace = true }
+picshot-geom = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

@@ -1,0 +1,13 @@
+[package]
+name = "picshot-geocode"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nephclick Picshot offline reverse geocoding: GPS position to sublocation / city / state / country from a GeoNames dump (L1)"
+
+[lints]
+workspace = true
+
+[dependencies]
+miniz_oxide = { workspace = true }
+serde = { workspace = true }

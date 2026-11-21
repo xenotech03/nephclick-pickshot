@@ -1,0 +1,21 @@
+[package]
+name = "picshot-merge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nephclick Picshot Photo Merge: HDR merge (align, deghost) and panorama stitching (L3)"
+
+[lints]
+workspace = true
+
+[dependencies]
+picshot-geom = { workspace = true }
+picshot-color = { workspace = true }
+picshot-raster = { workspace = true }
+picshot-raw = { workspace = true }
+picshot-codecs = { workspace = true }
+picshot-meta = { workspace = true }
+picshot-scenes = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+rayon = { workspace = true }
